@@ -1,0 +1,43 @@
+# Mini Codex Lab — Cursor 约束
+
+## 语言与沟通
+
+- 与用户交流使用**简体中文**。
+- 代码注释、提交说明、PR 描述使用**简体中文**（类型名、API、文件名保持英文）。
+
+## Git 提交规范
+
+- **仅在用户明确要求时**才创建 commit；不要主动提交。
+- 提交信息必须用**中文**，采用 Conventional Commits 前缀：
+
+```text
+feat: 新增 run 状态查询命令
+fix: 修复 workspace 根目录解析错误
+refactor: 抽取 RunStore 保存逻辑
+docs: 补充 Lab 01 验收说明
+chore: 更新 .gitignore 忽略 dist
+```
+
+- **标题一行、≤ 50 字**；需要补充说明时，空一行后写正文，正文不超过 3 行。
+- 禁止冗长英文句、禁止把 lint 输出或文件列表整段粘贴进 commit message。
+- 不要提交 `dist/`、`.minicodex/`、`node_modules/` 及本地环境文件。
+
+## 代码改动
+
+- **控制 diff 范围**：只改与当前任务相关的文件，不顺手重构无关代码。
+- 遵循现有 monorepo 结构：`packages/shared` → `packages/core` → `packages/cli`。
+- TypeScript 严格模式；包间引用使用 workspace 包名（如 `@minicodex/core`）。
+- 库包（`shared` / `core`）在各自 `tsconfig.json` 开启 `"declaration": true`；CLI 等入口应用不必开启。
+- 改 `packages/core` 后需 `pnpm run build`；改 CLI 源码可直接 `pnpm minicodex`（tsx dev）。
+- 公共函数、类方法保留简短中文职责注释（与课程风格一致）。
+
+## 命令与验证
+
+- 包管理使用 **pnpm**，不要改用 npm / yarn。
+- 改动后优先运行 `pnpm run check`；涉及构建链路时再跑 `pnpm run build`。
+- 练习目标仓库在 `fixtures/target-repo/`，遵循其中 `AGENTS.md` 约束。
+
+## 禁止事项
+
+- 不要修改 git config、不要 force push、不要跳过 hooks（除非用户明确要求）。
+- 不要提交密钥、`.env` 或个人机器绝对路径到文档或代码中。
