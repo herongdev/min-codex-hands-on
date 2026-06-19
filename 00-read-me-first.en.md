@@ -97,7 +97,7 @@ If you are aiming for AI application engineering, agent engineering, AI producti
 
 Files:
 
-1. [Lab 00: Create the practice workspace](./01-lab-00-environment-and-directory.md)
+1. [Lab 00: Create the practice workspace](./01-lab-00-environment-and-directory.en.md)
 2. [Lab 01: Save the first task](./02-lab-01-cli-first-run.md)
 3. [Lab 02: Pause a task for approval](./03-lab-02-state-machine.md)
 4. [Lab 03: Restrict what AI can do](./04-lab-03-tool-registry-permission.md)
@@ -146,4 +146,4 @@ The foundation course is about making the smallest loop reliable. Advanced capab
 
 Start here:
 
-[Lab 00: Environment and practice workspace](./01-lab-00-environment-and-directory.md)
+[Lab 00: Environment and practice workspace](./01-lab-00-environment-and-directory.en.md)

@@ -1,4 +1,6 @@
-# Lab 00：环境准备和重新创建目录
+# Lab 00：环境准备和目录创建
+
+[English](./01-lab-00-environment-and-directory.en.md)
 
 ## 1. 本 Lab 最终效果
 
@@ -23,15 +25,46 @@ minicodex-lab/
 
 它暂时还不会“智能”做事，但这个骨架会承载后面的命令行、后端、桌面界面、任务记录和检查逻辑。
 
-先完成第 2 节的目录创建，再用下面几个问题检查分层是否清楚。
+先把目录骨架建出来，再理解为什么要这样分层。
 
-## 设计能力训练：先想清楚为什么这样分目录
+### 1.1 进入练习目录
 
-当前阶段：你还没有写任何 agent 逻辑。我们先一起把产品和架构边界想清楚。
+本教程统一把练习项目放在 `mini-codex-course/playground/minicodex-lab`。后面的 Lab 都默认从 `minicodex-lab` 根目录继续。
+
+macOS / Linux：
+
+```bash
+mkdir -p ~/mini-codex-course/playground/minicodex-lab
+cd ~/mini-codex-course/playground/minicodex-lab
+```
+
+Windows PowerShell：
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\mini-codex-course\playground\minicodex-lab" | Out-Null
+Set-Location "$HOME\mini-codex-course\playground\minicodex-lab"
+```
+
+### 1.2 创建 monorepo 目录结构
+
+```bash
+mkdir -p packages/core/src
+mkdir -p packages/cli/src
+mkdir -p packages/shared/src
+mkdir -p apps/backend/src
+mkdir -p apps/desktop/src
+mkdir -p fixtures/target-repo/src
+mkdir -p .minicodex/runs
+mkdir -p .minicodex/eval
+```
+
+## 2. 设计能力训练：先想清楚为什么这样分目录
+
+当前阶段：目录骨架已经建好，你还没有写任何 agent 逻辑。现在对照这个结构，检查分层是否清楚。
 
 这一阶段的意义是：先决定 Mini Codex 的能力放在哪里。真实 Codex 不是只有一个入口，它可以出现在 CLI、IDE、Web、桌面端里。所以我们先把 `core` 抽出来，再让 CLI、后端、桌面端复用它。
 
-动手前，先花一分钟自己回答：
+对照刚建好的目录，花一分钟自己回答：
 
 ```text
 如果我只做 CLI，还需要 core 包吗？
@@ -81,36 +114,6 @@ CLI、backend、desktop 分别是什么 adapter？
 ```
 
 做完本 Lab 后，在 `design-journal.md` 里写一小段：如果让你重新设计一个 Docs Agent，你会不会也用 `core + cli + backend + desktop` 这个结构，为什么？
-
-## 2. 创建目录
-
-本教程统一把练习项目放在 `mini-codex-course/playground/minicodex-lab`。后面的 Lab 都默认从 `minicodex-lab` 根目录继续。
-
-macOS / Linux：
-```bash
-mkdir -p ~/mini-codex-course/playground/minicodex-lab
-cd ~/mini-codex-course/playground/minicodex-lab
-```
-
-Windows PowerShell：
-
-```powershell
-New-Item -ItemType Directory -Force "$HOME\mini-codex-course\playground\minicodex-lab" | Out-Null
-Set-Location "$HOME\mini-codex-course\playground\minicodex-lab"
-```
-
-创建 monorepo 结构：
-
-```bash
-mkdir -p packages/core/src
-mkdir -p packages/cli/src
-mkdir -p packages/shared/src
-mkdir -p apps/backend/src
-mkdir -p apps/desktop/src
-mkdir -p fixtures/target-repo/src
-mkdir -p .minicodex/runs
-mkdir -p .minicodex/eval
-```
 
 ## 3. 创建 pnpm workspace
 
