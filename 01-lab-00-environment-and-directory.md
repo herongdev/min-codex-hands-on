@@ -172,7 +172,6 @@ packages:
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "declaration": true,
     "outDir": "dist"
   }
 }
@@ -209,11 +208,14 @@ pnpm install
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   },
   "include": ["src"]
 }
 ```
+
+`shared` 会被其他包引用，`package.json` 里写了 `"types": "dist/index.d.ts"`，所以这里要开启 `declaration` 生成类型文件。
 
 `packages/shared/src/index.ts`：
 
@@ -251,11 +253,14 @@ export type JsonObject = Record<string, unknown>;
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   },
   "include": ["src"]
 }
 ```
+
+`core` 同样会被 CLI 引用，也需要生成 `.d.ts`。
 
 `packages/core/src/index.ts`：
 
@@ -302,7 +307,7 @@ export const minicodexCoreVersion = "0.1.0";
 
 根目录 `pnpm minicodex` 走 CLI 的 `dev`（tsx），改 CLI 源码后不用先 build；但 `@minicodex/core` 的 `main` 指向 `dist/index.js`，改 core 后仍需 `pnpm run build`。
 
-`tsconfig.base.json` 里的 `"declaration": true` 会让 `shared` / `core` 生成 `.d.ts`，否则 CLI 执行 `tsc` 时会报找不到 `@minicodex/core` 的类型声明。
+`shared` / `core` 的 `tsconfig.json` 里需要 `"declaration": true`（它们的 `package.json` 声明了 `"types": "dist/index.d.ts"`）。CLI 是入口应用，只编译出可执行 JS，不必开启。
 
 `packages/cli/tsconfig.json`：
 

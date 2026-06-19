@@ -172,7 +172,6 @@ Create `tsconfig.base.json`:
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "declaration": true,
     "outDir": "dist"
   }
 }
@@ -209,11 +208,14 @@ pnpm install
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   },
   "include": ["src"]
 }
 ```
+
+`shared` is consumed by other packages and its `package.json` points to `"types": "dist/index.d.ts"`, so enable `declaration` here to emit type files.
 
 `packages/shared/src/index.ts`:
 
@@ -251,11 +253,14 @@ export type JsonObject = Record<string, unknown>;
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   },
   "include": ["src"]
 }
 ```
+
+`core` is also imported by the CLI, so it needs `.d.ts` output too.
 
 `packages/core/src/index.ts`:
 
@@ -302,7 +307,7 @@ The `scripts` above use two different tools:
 
 Root `pnpm minicodex` uses the CLI `dev` script (tsx), so CLI source changes do not require a build first. `@minicodex/core` still resolves to `dist/index.js`, so core changes still need `pnpm run build`.
 
-`"declaration": true` in `tsconfig.base.json` makes `shared` / `core` emit `.d.ts` files. Without it, the CLI `tsc` build fails with missing types for `@minicodex/core`.
+`shared` / `core` need `"declaration": true` in their `tsconfig.json` (their `package.json` files declare `"types": "dist/index.d.ts"`). The CLI is an entry app—it only needs runnable JS, not exported types.
 
 `packages/cli/tsconfig.json`:
 
