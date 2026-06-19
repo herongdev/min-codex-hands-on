@@ -1,5 +1,7 @@
 # Mini Codex v2 基础课
 
+[English](./README.en.md)
+
 欢迎来到 Mini Codex 主线课程。
 
 这套课会带你从第一个目录开始，逐步做出一个能跑、可审批、可验证、可复盘的 Mini Codex。
