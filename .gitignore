@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+
+# Local notes and private course material
+14-v2-advanced-course-roadmap.md
+../min-codex-hands-on-v2-advanced/
+*.local.md
+
+# Editor and runtime noise
+.idea/
+.vscode/
+node_modules/
+dist/
+build/
+.turbo/
+.cache/
