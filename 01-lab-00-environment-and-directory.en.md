@@ -172,6 +172,7 @@ Create `tsconfig.base.json`:
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "declaration": true,
     "outDir": "dist"
   }
 }
@@ -286,6 +287,22 @@ export const minicodexCoreVersion = "0.1.0";
   }
 }
 ```
+
+### 6.1 `tsx` vs `tsc`
+
+The `scripts` above use two different tools:
+
+| Command | Role |
+| --- | --- |
+| `tsx src/index.ts` (`dev`) | **Run** TypeScript directly; no `dist/` output; good for local dev |
+| `tsc -p tsconfig.json` (`build`) | **Compile** TypeScript to JavaScript into `dist/` |
+| `tsc -p ... --noEmit` (`check`) | Type-check only; no files emitted |
+
+`-p` is short for `--project`: it tells `tsc` which `tsconfig.json` to use (include paths, `outDir`, etc.).
+
+Root `pnpm minicodex` uses the CLI `dev` script (tsx), so CLI source changes do not require a build first. `@minicodex/core` still resolves to `dist/index.js`, so core changes still need `pnpm run build`.
+
+`"declaration": true` in `tsconfig.base.json` makes `shared` / `core` emit `.d.ts` files. Without it, the CLI `tsc` build fails with missing types for `@minicodex/core`.
 
 `packages/cli/tsconfig.json`:
 

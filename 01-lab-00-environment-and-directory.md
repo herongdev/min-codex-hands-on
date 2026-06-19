@@ -172,6 +172,7 @@ packages:
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "declaration": true,
     "outDir": "dist"
   }
 }
@@ -286,6 +287,22 @@ export const minicodexCoreVersion = "0.1.0";
   }
 }
 ```
+
+### 6.1 `tsx` 和 `tsc` 有什么区别？
+
+上面 `scripts` 里会出现两种命令：
+
+| 命令 | 作用 |
+| --- | --- |
+| `tsx src/index.ts`（`dev`） | **直接运行** TypeScript 源码，不写 `dist/`，适合开发调试 |
+| `tsc -p tsconfig.json`（`build`） | **编译** TypeScript → JavaScript，输出到 `dist/` |
+| `tsc -p ... --noEmit`（`check`） | 只做类型检查，不写文件 |
+
+`-p` 是 `--project` 的缩写，指定用哪一份 `tsconfig.json`（编译范围、`outDir` 等）。
+
+根目录 `pnpm minicodex` 走 CLI 的 `dev`（tsx），改 CLI 源码后不用先 build；但 `@minicodex/core` 的 `main` 指向 `dist/index.js`，改 core 后仍需 `pnpm run build`。
+
+`tsconfig.base.json` 里的 `"declaration": true` 会让 `shared` / `core` 生成 `.d.ts`，否则 CLI 执行 `tsc` 时会报找不到 `@minicodex/core` 的类型声明。
 
 `packages/cli/tsconfig.json`：
 
