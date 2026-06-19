@@ -99,7 +99,7 @@ Files:
 
 1. [Lab 00: Create the practice workspace](./01-lab-00-environment-and-directory.en.md)
 2. [Lab 01: Save the first task](./02-lab-01-cli-first-run.md)
-3. [Lab 02: Pause a task for approval](./03-lab-02-state-machine.md)
+3. [Lab 02: Pause a task for approval](./03-lab-02-state-machine.en.md)
 4. [Lab 03: Restrict what AI can do](./04-lab-03-tool-registry-permission.md)
 5. [Lab 04: Complete the first real code change](./05-lab-04-coding-loop.md)
 6. [Lab 05: Save, replay, and review the process](./06-lab-05-trace-replay-eval.md)
